@@ -60,6 +60,7 @@ PKG_CONFIG_DEPENDS := \
 	CONFIG_NGINX_HTTP_UPSTREAM_ZONE \
 	CONFIG_NGINX_HTTP_CACHE \
 	CONFIG_NGINX_HTTP_V2 \
+	CONFIG_NGINX_HTTP_XSLT \
 	CONFIG_NGINX_PCRE \
 	CONFIG_NGINX_NAXSI \
 	CONFIG_NGINX_LUA \
@@ -84,7 +85,7 @@ define Package/nginx/default
   TITLE:=Nginx web server
   URL:=http://nginx.org/
   DEPENDS:=+NGINX_PCRE:libpcre +NGINX_SSL:libopenssl \
-	+NGINX_HTTP_GZIP:zlib +NGINX_LUA:liblua +libpthread +NGINX_DAV:libexpat
+	+NGINX_HTTP_GZIP:zlib +NGINX_LUA:liblua +libpthread +NGINX_DAV:libexpat +NGINX_HTTP_XSLT:libexslt
 endef
 
 define Package/nginx/description
@@ -113,7 +114,7 @@ Package/nginx-ssl/description = $(Package/nginx/description) \
 define Package/nginx-all-module
   $(Package/nginx/default)
   TITLE += with ALL module selected
-  DEPENDS:=+libpcre +libopenssl +zlib +liblua +libpthread +libexpat
+  DEPENDS:=+libpcre +libopenssl +zlib +liblua +libpthread +libexpat +libexslt
   VARIANT:=all-module
   PROVIDES:=nginx
 endef
@@ -261,6 +262,10 @@ ifneq ($(BUILD_VARIANT),all-module)
   ifeq ($(CONFIG_NGINX_HTTP_V2),y)
     ADDITIONAL_MODULES += --with-http_v2_module
   endif
+  ifeq ($(CONFIG_NGINX_HTTP_XSLT),y)
+    ADDITIONAL_MODULES += --with-http_xslt_module
+    TARGET_CPPFLAGS += -I$(STAGING_DIR)/usr/include/libxml2
+  endif
   ifeq ($(CONFIG_NGINX_HTTP_REAL_IP),y)
     ADDITIONAL_MODULES += --with-http_realip_module
   endif
@@ -308,6 +313,8 @@ else
 	--add-module=$(PKG_BUILD_DIR)/nginx-brotli --add-module=$(PKG_BUILD_DIR)/nginx-rtmp \
 	--add-module=$(PKG_BUILD_DIR)/nginx-ts
   config_files += koi-utf koi-win win-utf fastcgi_params 
+  ADDITIONAL_MODULES += --with-http_xslt_module
+  TARGET_CPPFLAGS += -I$(STAGING_DIR)/usr/include/libxml2
 endif
 
 define Package/nginx-mod-luci/default
