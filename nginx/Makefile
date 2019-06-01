@@ -412,11 +412,11 @@ endef
 
 ifeq ($(CONFIG_NGINX_HEADERS_MORE),y)
   define Download/nginx-headers-more
-    VERSION:=a9f7c7e86cc7441d04e2f11f01c2e3a9c4b0301d
+    VERSION:=085fbbc28fe5d7bd61bc7cd8d1355e73abc296ea
     SUBDIR:=nginx-headers-more
     FILE:=headers-more-nginx-module-$$(VERSION).tar.gz
     URL:=https://github.com/openresty/headers-more-nginx-module.git
-    MIRROR_HASH:=432609015719aaa7241e5166c7cda427acbe004f725887f78ef629d51bd9cb3f
+    MIRROR_HASH:=d71203094106fc5f2bb35f1ff2af4e2066124921701429c6e53ed1b657c2dab1
     PROTO:=git
   endef
   $(eval $(call Download,nginx-headers-more))
