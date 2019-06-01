@@ -484,11 +484,11 @@ endif
 
 ifeq ($(CONFIG_NGINX_NAXSI),y)
   define Download/nginx-naxsi
-    VERSION:=951123ad456bdf5ac94e8d8819342fe3d49bc002
+    VERSION:=d3cbf8a5b055c3d6ae17be37797ecb82d0a4956c
     SUBDIR:=nginx-naxsi
     FILE:=nginx-naxsi-module-$$(VERSION).tar.gz
     URL:=https://github.com/nbs-system/naxsi.git
-    MIRROR_HASH:=7ab791f2ff38096f48013141bbfe20ba213d5e04dcac08ca82e0cac07d5c30f0
+    MIRROR_HASH:=4f02df7ecd17e45a3f661e23d1510e338af2ccf1f85e7e38196e6bb144355447
     PROTO:=git
   endef
   $(eval $(call Download,nginx-naxsi))
