@@ -1,0 +1,63 @@
+--- a/src/http/modules/ngx_http_gunzip_filter_module.c
++++ b/src/http/modules/ngx_http_gunzip_filter_module.c
+@@ -15,6 +15,7 @@
+ 
+ typedef struct {
+     ngx_flag_t           enable;
++    ngx_flag_t           always;
+     ngx_bufs_t           bufs;
+ } ngx_http_gunzip_conf_t;
+ 
+@@ -71,6 +72,13 @@ static ngx_command_t  ngx_http_gunzip_fi
+       offsetof(ngx_http_gunzip_conf_t, enable),
+       NULL },
+ 
++    { ngx_string("gunzip_always"),
++      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_FLAG,
++      ngx_conf_set_flag_slot,
++      NGX_HTTP_LOC_CONF_OFFSET,
++      offsetof(ngx_http_gunzip_conf_t, always),
++      NULL },
++
+     { ngx_string("gunzip_buffers"),
+       NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE2,
+       ngx_conf_set_bufs_slot,
+@@ -140,13 +148,15 @@ ngx_http_gunzip_header_filter(ngx_http_r
+ 
+     r->gzip_vary = 1;
+ 
+-    if (!r->gzip_tested) {
+-        if (ngx_http_gzip_ok(r) == NGX_OK) {
++    if (!conf->always) {
++        if (!r->gzip_tested) {
++            if (ngx_http_gzip_ok(r) == NGX_OK) {
++                return ngx_http_next_header_filter(r);
++            }
++
++        } else if (r->gzip_ok) {
+             return ngx_http_next_header_filter(r);
+         }
+-
+-    } else if (r->gzip_ok) {
+-        return ngx_http_next_header_filter(r);
+     }
+ 
+     ctx = ngx_pcalloc(r->pool, sizeof(ngx_http_gunzip_ctx_t));
+@@ -655,6 +665,8 @@ ngx_http_gunzip_create_conf(ngx_conf_t *
+ 
+     conf->enable = NGX_CONF_UNSET;
+ 
++    conf->always = NGX_CONF_UNSET;
++
+     return conf;
+ }
+ 
+@@ -667,6 +679,8 @@ ngx_http_gunzip_merge_conf(ngx_conf_t *c
+ 
+     ngx_conf_merge_value(conf->enable, prev->enable, 0);
+ 
++    ngx_conf_merge_value(conf->always, prev->always, 0);
++
+     ngx_conf_merge_bufs_value(conf->bufs, prev->bufs,
+                               (128 * 1024) / ngx_pagesize, ngx_pagesize);
+ 
