@@ -246,10 +246,10 @@ ifneq ($(BUILD_VARIANT),all-module)
     ADDITIONAL_MODULES += --with-http_ssl_module
   endif
   ifeq ($(CONFIG_NGINX_NAXSI),y)
-    ADDITIONAL_MODULES += --add-module=$(PKG_BUILD_DIR)/nginx-naxsi/naxsi_src
+    ADDITIONAL_MODULES += --add-module=nginx-naxsi/naxsi_src
   endif
   ifeq ($(CONFIG_NGINX_LUA),y)
-    ADDITIONAL_MODULES += --add-module=$(PKG_BUILD_DIR)/lua-nginx
+    ADDITIONAL_MODULES += --add-module=lua-nginx
   endif
   ifeq ($(CONFIG_IPV6),y)
     ADDITIONAL_MODULES += --with-ipv6
@@ -261,7 +261,7 @@ ifneq ($(BUILD_VARIANT),all-module)
     ADDITIONAL_MODULES += --with-http_flv_module
   endif
   ifeq ($(CONFIG_NGINX_DAV),y)
-    ADDITIONAL_MODULES += --with-http_dav_module --add-module=$(PKG_BUILD_DIR)/nginx-dav-ext-module
+    ADDITIONAL_MODULES += --with-http_dav_module --add-module=nginx-dav-ext-module
   endif
   ifeq ($(CONFIG_NGINX_HTTP_AUTH_REQUEST),y)
     ADDITIONAL_MODULES += --with-http_auth_request_module
@@ -301,16 +301,16 @@ ifneq ($(BUILD_VARIANT),all-module)
     ADDITIONAL_MODULES += --add-module=nginx-substitutions-filter
   endif
   ifeq ($(CONFIG_NGINX_HEADERS_MORE),y)
-    ADDITIONAL_MODULES += --add-module=$(PKG_BUILD_DIR)/nginx-headers-more
+    ADDITIONAL_MODULES += --add-module=nginx-headers-more
   endif
   ifeq ($(CONFIG_NGINX_HTTP_BROTLI),y)
-    ADDITIONAL_MODULES += --add-module=$(PKG_BUILD_DIR)/nginx-brotli
+    ADDITIONAL_MODULES += --add-module=nginx-brotli
   endif
   ifeq ($(CONFIG_NGINX_RTMP_MODULE),y)
-    ADDITIONAL_MODULES += --add-module=$(PKG_BUILD_DIR)/nginx-rtmp
+    ADDITIONAL_MODULES += --add-module=nginx-rtmp
   endif
   ifeq ($(CONFIG_NGINX_TS_MODULE),y)
-    ADDITIONAL_MODULES += --add-module=$(PKG_BUILD_DIR)/nginx-ts
+    ADDITIONAL_MODULES += --add-module=nginx-ts
   endif
 else
   CONFIG_NGINX_HEADERS_MORE:=y
@@ -322,14 +322,14 @@ else
   CONFIG_NGINX_NAXSI:=y
   CONFIG_NGINX_LUA:=y
   CONFIG_NGINX_DAV:=y
-  ADDITIONAL_MODULES += --with-http_ssl_module --add-module=$(PKG_BUILD_DIR)/nginx-naxsi/naxsi_src \
-    --add-module=$(PKG_BUILD_DIR)/lua-nginx --with-ipv6 --with-http_stub_status_module --with-http_flv_module \
-	--with-http_dav_module --add-module=$(PKG_BUILD_DIR)/nginx-dav-ext-module \
+  ADDITIONAL_MODULES += --with-http_ssl_module --add-module=nginx-naxsi/naxsi_src \
+    --add-module=lua-nginx --with-ipv6 --with-http_stub_status_module --with-http_flv_module \
+	--with-http_dav_module --add-module=nginx-dav-ext-module \
 	--with-http_auth_request_module --with-http_v2_module --with-http_realip_module \
-	--with-http_secure_link_module --with-http_sub_module --add-module=$(PKG_BUILD_DIR)/nginx-headers-more \
+	--with-http_secure_link_module --with-http_sub_module --add-module=nginx-headers-more \
 	--with-stream --with-stream_ssl_module --with-stream_ssl_preread_module \
-	--add-module=$(PKG_BUILD_DIR)/nginx-brotli --add-module=$(PKG_BUILD_DIR)/nginx-rtmp \
-	--add-module=$(PKG_BUILD_DIR)/nginx-ts
+	--add-module=nginx-brotli --add-module=nginx-rtmp \
+	--add-module=nginx-ts
   config_files += koi-utf koi-win win-utf fastcgi_params 
   ADDITIONAL_MODULES += --add-module=nginx-substitutions-filter
   ADDITIONAL_MODULES += --add-module=nginx-upstream-check
