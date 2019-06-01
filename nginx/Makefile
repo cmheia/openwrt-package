@@ -67,6 +67,8 @@ PKG_CONFIG_DEPENDS := \
 	CONFIG_NGINX_HTTP_REAL_IP \
 	CONFIG_NGINX_HTTP_SECURE_LINK \
 	CONFIG_NGINX_HTTP_BROTLI \
+	CONFIG_NGINX_HTTP_GUNZIP \
+	CONFIG_NGINX_GZIP_STATIC \
 	CONFIG_NGINX_HEADERS_MORE \
 	CONFIG_NGINX_STREAM_CORE_MODULE \
 	CONFIG_NGINX_STREAM_SSL_MODULE \
@@ -265,6 +267,12 @@ ifneq ($(BUILD_VARIANT),all-module)
   ifeq ($(CONFIG_NGINX_HTTP_XSLT),y)
     ADDITIONAL_MODULES += --with-http_xslt_module
     TARGET_CPPFLAGS += -I$(STAGING_DIR)/usr/include/libxml2
+  endif
+  ifeq ($(CONFIG_NGINX_HTTP_GUNZIP),y)
+    ADDITIONAL_MODULES += --with-http_gunzip_module
+  endif
+  ifeq ($(CONFIG_NGINX_GZIP_STATIC),y)
+    ADDITIONAL_MODULES += --with-http_gzip_static_module
   endif
   ifeq ($(CONFIG_NGINX_HTTP_REAL_IP),y)
     ADDITIONAL_MODULES += --with-http_realip_module
