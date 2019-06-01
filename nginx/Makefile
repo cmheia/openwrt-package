@@ -375,7 +375,6 @@ endif
 
 CONFIGURE_ARGS += \
 			--crossbuild=Linux::$(ARCH) \
-			--prefix=/usr \
 			--conf-path=/etc/nginx/nginx.conf \
 			$(ADDITIONAL_MODULES) \
 			--error-log-path=/var/log/nginx/error.log \
