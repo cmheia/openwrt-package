@@ -528,11 +528,11 @@ endif
 
 ifeq ($(CONFIG_NGINX_DAV),y)
   define Download/nginx-dav-ext-module
-    VERSION:=430fd774fe838a04f1a5defbf1dd571d42300cf9
+    VERSION:=f5e30888a256136d9c550bf1ada77d6ea78a48af
     SUBDIR:=nginx-dav-ext-module
     FILE:=nginx-dav-ext-module-$$(VERSION).tar.gz
     URL:=https://github.com/arut/nginx-dav-ext-module.git
-    MIRROR_HASH:=0566053a8756423ecab455fd9d218cec1e017598fcbb3d6415a06f816851611e
+    MIRROR_HASH:=052dfc5a40b3b66ce27120e3ddab2a3dc9acbcb0184554e2b07552b2c490dc72
     PROTO:=git
   endef
   $(eval $(call Download,nginx-dav-ext-module))
