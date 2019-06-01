@@ -58,6 +58,7 @@ PKG_CONFIG_DEPENDS := \
 	CONFIG_NGINX_HTTP_UPSTREAM_LEAST_CONN \
 	CONFIG_NGINX_HTTP_UPSTREAM_KEEPALIVE \
 	CONFIG_NGINX_HTTP_UPSTREAM_ZONE \
+	CONFIG_NGINX_HTTP_UPSTREAM_CHECK \
 	CONFIG_NGINX_HTTP_CACHE \
 	CONFIG_NGINX_HTTP_V2 \
 	CONFIG_NGINX_HTTP_XSLT \
@@ -230,6 +231,9 @@ ifneq ($(BUILD_VARIANT),all-module)
   ifneq ($(CONFIG_NGINX_HTTP_UPSTREAM_KEEPALIVE),y)
     ADDITIONAL_MODULES += --without-http_upstream_keepalive_module
   endif
+  ifeq ($(CONFIG_NGINX_HTTP_UPSTREAM_CHECK),y)
+    ADDITIONAL_MODULES += --add-module=nginx-upstream-check
+  endif
   
   ifeq ($(BUILD_VARIANT),ssl)
     ifneq ($(CONFIG_NGINX_SSL),y)
@@ -307,6 +311,7 @@ ifneq ($(BUILD_VARIANT),all-module)
 else
   CONFIG_NGINX_HEADERS_MORE:=y
   CONFIG_NGINX_HTTP_BROTLI:=y
+  CONFIG_NGINX_HTTP_UPSTREAM_CHECK:=y
   CONFIG_NGINX_RTMP_MODULE:=y
   CONFIG_NGINX_TS_MODULE:=y
   CONFIG_NGINX_NAXSI:=y
@@ -321,6 +326,7 @@ else
 	--add-module=$(PKG_BUILD_DIR)/nginx-brotli --add-module=$(PKG_BUILD_DIR)/nginx-rtmp \
 	--add-module=$(PKG_BUILD_DIR)/nginx-ts
   config_files += koi-utf koi-win win-utf fastcgi_params 
+  ADDITIONAL_MODULES += --add-module=nginx-upstream-check
   ADDITIONAL_MODULES += --with-http_xslt_module
   TARGET_CPPFLAGS += -I$(STAGING_DIR)/usr/include/libxml2
 endif
@@ -422,6 +428,7 @@ define Build/Prepare
 	$(Prepare/nginx-rtmp)
 	$(Prepare/nginx-ts)
 	$(Prepare/nginx-dav-ext-module)
+	$(Prepare/nginx-upstream-check)
 endef
 
 
@@ -457,6 +464,25 @@ ifeq ($(CONFIG_NGINX_HTTP_BROTLI),y)
   define Prepare/nginx-brotli
 	$(eval $(Download/nginx-brotli))
 	gzip -dc $(DL_DIR)/$(FILE) | tar -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
+  endef
+endif
+
+
+ifeq ($(CONFIG_NGINX_HTTP_UPSTREAM_CHECK),y)
+  define Download/nginx-upstream-check
+    VERSION:=007f76f7adbcbd6abd9352502af1a4ae463def85
+    SUBDIR:=nginx-upstream-check
+    FILE:=nginx-upstream-check-module-$$(VERSION).tar.gz
+    URL:=https://github.com/yaoweibin/nginx_upstream_check_module.git
+    MIRROR_HASH:=052da9d982d71bc4097b988b1f61c69cb71180f7879f361aed9537747bee0d60
+    PROTO:=git
+  endef
+  $(eval $(call Download,nginx-upstream-check))
+
+  define Prepare/nginx-upstream-check
+	$(eval $(Download/nginx-upstream-check))
+	gzip -dc $(DL_DIR)/$(FILE) | tar -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
+	patch -p1 -d $(PKG_BUILD_DIR) < $(PKG_BUILD_DIR)/nginx-upstream-check/check_1.14.0+.patch
   endef
 endif
 

@@ -257,4 +257,11 @@ config NGINX_HTTP_XSLT
 	prompt "Enable HTTP xslt module"
 	default y
 
+config CONFIG_NGINX_HTTP_UPSTREAM_CHECK
+	bool
+	prompt "Enable HTTP upstream check module"
+	help
+		Support upstream health check with Nginx
+	default y
+
 endmenu
