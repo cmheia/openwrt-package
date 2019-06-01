@@ -272,4 +272,11 @@ config CONFIG_NGINX_HTTP_UPSTREAM_CHECK
 		Support upstream health check with Nginx
 	default y
 
+config CONFIG_NGINX_SUBSTITUTIONS_FILTER
+	bool
+	prompt "Enable HTTP substitutions filter module"
+	help
+		A filter module which can do both regular expression and fixed string substitutions for nginx
+	default y
+
 endmenu

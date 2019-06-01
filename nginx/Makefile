@@ -61,6 +61,7 @@ PKG_CONFIG_DEPENDS := \
 	CONFIG_NGINX_HTTP_UPSTREAM_CHECK \
 	CONFIG_NGINX_HTTP_CACHE \
 	CONFIG_NGINX_HTTP_V2 \
+	CONFIG_NGINX_HTTP_SUBSTITUTIONS_FILTER \
 	CONFIG_NGINX_HTTP_XSLT \
 	CONFIG_NGINX_PCRE \
 	CONFIG_NGINX_NAXSI \
@@ -296,6 +297,9 @@ ifneq ($(BUILD_VARIANT),all-module)
   ifeq ($(CONFIG_NGINX_STREAM_SSL_PREREAD_MODULE),y)
     ADDITIONAL_MODULES += --with-stream_ssl_preread_module
   endif
+  ifeq ($(CONFIG_NGINX_HTTP_SUBSTITUTIONS_FILTER),y)
+    ADDITIONAL_MODULES += --add-module=nginx-substitutions-filter
+  endif
   ifeq ($(CONFIG_NGINX_HEADERS_MORE),y)
     ADDITIONAL_MODULES += --add-module=$(PKG_BUILD_DIR)/nginx-headers-more
   endif
@@ -311,6 +315,7 @@ ifneq ($(BUILD_VARIANT),all-module)
 else
   CONFIG_NGINX_HEADERS_MORE:=y
   CONFIG_NGINX_HTTP_BROTLI:=y
+  CONFIG_NGINX_HTTP_SUBSTITUTIONS_FILTER:=y
   CONFIG_NGINX_HTTP_UPSTREAM_CHECK:=y
   CONFIG_NGINX_RTMP_MODULE:=y
   CONFIG_NGINX_TS_MODULE:=y
@@ -326,6 +331,7 @@ else
 	--add-module=$(PKG_BUILD_DIR)/nginx-brotli --add-module=$(PKG_BUILD_DIR)/nginx-rtmp \
 	--add-module=$(PKG_BUILD_DIR)/nginx-ts
   config_files += koi-utf koi-win win-utf fastcgi_params 
+  ADDITIONAL_MODULES += --add-module=nginx-substitutions-filter
   ADDITIONAL_MODULES += --add-module=nginx-upstream-check
   ADDITIONAL_MODULES += --with-http_xslt_module
   TARGET_CPPFLAGS += -I$(STAGING_DIR)/usr/include/libxml2
@@ -428,6 +434,7 @@ define Build/Prepare
 	$(Prepare/nginx-rtmp)
 	$(Prepare/nginx-ts)
 	$(Prepare/nginx-dav-ext-module)
+	$(Prepare/nginx-substitutions-filter)
 	$(Prepare/nginx-upstream-check)
 endef
 
@@ -483,6 +490,24 @@ ifeq ($(CONFIG_NGINX_HTTP_UPSTREAM_CHECK),y)
 	$(eval $(Download/nginx-upstream-check))
 	gzip -dc $(DL_DIR)/$(FILE) | tar -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
 	patch -p1 -d $(PKG_BUILD_DIR) < $(PKG_BUILD_DIR)/nginx-upstream-check/check_1.14.0+.patch
+  endef
+endif
+
+
+ifeq ($(CONFIG_NGINX_HTTP_SUBSTITUTIONS_FILTER),y)
+  define Download/nginx-substitutions-filter
+    VERSION:=bc58cb11844bc42735bbaef7085ea86ace46d05b
+    SUBDIR:=nginx-substitutions-filter
+    FILE:=nginx-substitutions-filter-module-$$(VERSION).tar.gz
+    URL:=https://github.com/yaoweibin/ngx_http_substitutions_filter_module.git
+    MIRROR_HASH:=f2f77253079051dc3f2ee8054d3b4e1ae27b4077c929e581ddccdb6178c24fcf
+    PROTO:=git
+  endef
+  $(eval $(call Download,nginx-substitutions-filter))
+
+  define Prepare/nginx-substitutions-filter
+	$(eval $(Download/nginx-substitutions-filter))
+	gzip -dc $(DL_DIR)/$(FILE) | tar -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
   endef
 endif
 
