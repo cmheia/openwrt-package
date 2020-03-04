@@ -1,0 +1,22 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2019 cmheia <cmheia@gmail.com>
+
+START=99
+USE_PROCD=1
+
+PKG_NAME=3proxy
+PROG=/usr/bin/$PKG_NAME
+CONF_FILE=/etc/$PKG_NAME/$PKG_NAME.cfg
+PID_FILE=/var/run/$PKG_NAME.pid
+
+start_service() {
+	[ -d /var/log/$PKG_NAME ] || mkdir -p /var/log/$PKG_NAME
+
+	procd_open_instance
+	procd_set_param command "$PROG" "$CONF_FILE"
+	procd_set_param file "$CONF_FILE"
+	procd_set_param respawn
+	procd_set_param pidfile "$PID_FILE"
+	# procd_set_param user nobody
+	procd_close_instance
+}
