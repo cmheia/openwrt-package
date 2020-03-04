@@ -1,0 +1,214 @@
+#
+# cmheia <cmheia@gmail.com>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-19 22:17+0800\n"
+"PO-Revision-Date: 2018-06-19 22:17+0800\n"
+"Last-Translator: cmheia < cmheia@gmail.com >\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 2.91.7\n"
+
+msgid "vsftpd FTP Server"
+msgstr "FTP服务器(vsftpd)"
+
+msgid "Probably the most secure and fastest FTP server for UNIX-like systems."
+msgstr "据说是最快的 FTP 服务器"
+
+msgid "General Settings"
+msgstr "一般设置"
+
+msgid "Virtual User"
+msgstr "虚拟用户"
+
+msgid "Anonymous User"
+msgstr "匿名用户"
+
+msgid "Log"
+msgstr "日志设置"
+
+msgid "Edit Template"
+msgstr "编辑模板"
+
+msgid "Enable IPv4"
+msgstr "监听 IPv4"
+
+msgid "Bind IPv4 address"
+msgstr "绑定 IPv4 地址"
+
+msgid "Numeric IP address"
+msgstr "点分格式"
+
+msgid "Enable IPv6"
+msgstr "监听 IPv6"
+
+msgid "Bind IPv6 address"
+msgstr "绑定 IPv6 地址"
+
+msgid "Standard IPv6 address format"
+msgstr "标准 IPv6 格式"
+
+msgid "Listen port"
+msgstr "监听端口"
+
+msgid "FTP data port"
+msgstr "FTP数据端口"
+
+msgid "Pasv port min"
+msgstr "被动模式最小端口"
+
+msgid "Pasv port max"
+msgstr "被动模式最大端口"
+
+msgid "Banner"
+msgstr "登录问候"
+
+msgid "Enable download"
+msgstr "允许下载"
+
+msgid "Enable write"
+msgstr "允许上传"
+
+msgid "Show dot files"
+msgstr "显示隐藏文件"
+
+msgid "Create mask of local user"
+msgstr "本地用户新文件的权限掩码"
+
+msgid "Enable dirlist"
+msgstr "允许列出目录"
+
+msgid "Enable dirmessage"
+msgstr "进入目录显示提示"
+
+msgid "Dir message file"
+msgstr "进入目录提示消息文件"
+
+msgid "Enable port mode"
+msgstr "启用端口模式"
+
+msgid "Enable pasv mode"
+msgstr "启用被动模式"
+
+msgid "Enable ASCII mode"
+msgstr "允许 ASCII 模式传输"
+
+msgid "Both download & upload"
+msgstr "上传和下载"
+
+msgid "Download only"
+msgstr "仅下载"
+
+msgid "Upload only"
+msgstr "仅上传"
+
+msgid "Idle session timeout"
+msgstr "空闲断开时间"
+
+msgid "Connect timeout"
+msgstr "端口模式连接超时时间"
+
+msgid "Transfer timeout"
+msgstr "传输超时时间"
+
+msgid "Max clients"
+msgstr "最大同时连接客户数量"
+
+msgid "Max clients per IP"
+msgstr "单 IP 最大同时连接客户数量"
+
+msgid "Max rate of local user"
+msgstr "本地用户限速"
+
+msgid "Max login fails"
+msgstr "登录失败重试次数"
+
+msgid "Enable virtual user"
+msgstr "启用虚拟用户"
+
+msgid "Owner user"
+msgstr "映射宿主用户"
+
+msgid "Enable anonymous user"
+msgstr "启用匿名用户"
+
+msgid "Host user"
+msgstr "映射宿主用户"
+
+msgid "Host user group"
+msgstr "映射宿主用户组"
+
+msgid "Host user home"
+msgstr "映射宿主用户家目录"
+
+msgid "FTP root directory"
+msgstr "根目录"
+
+msgid "Anonymous user mask"
+msgstr "匿名用户新文件权限掩码"
+
+msgid "Anonymous user can create directory"
+msgstr "允许创建目录"
+
+msgid "Anonymous user can upload"
+msgstr "允许上传文件"
+
+msgid "Anonymous user can delete and rename"
+msgstr "允许更名、删除"
+
+msgid "Max rate of anonymous user"
+msgstr "限速"
+
+msgid "Log transfer"
+msgstr "记录传输日志"
+
+msgid "Log to syslog"
+msgstr "记录到系统日志"
+
+msgid "Transfer log file"
+msgstr "wu-ftpd 格式日志文件"
+
+msgid "Vsftpd style log file"
+msgstr "vsftpd 格式日志文件"
+
+msgid "Use standard format in transfer log"
+msgstr "使用标准传输日志格式"
+
+msgid "Enable template"
+msgstr "启用模板"
+
+msgid "Values in other tabs will be displaced by content in here."
+msgstr "模板内容会覆盖其它标签页的选项"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Home"
+msgstr "家目录"
+
+msgid "Create mask"
+msgstr "新文件掩码"
+
+msgid "Max rate"
+msgstr "限速"
+
+msgid "Upload"
+msgstr "允许上传"
+
+msgid "Write"
+msgstr "允许删除"
+
+msgid "Owner user"
+msgstr "映射宿主用户"
