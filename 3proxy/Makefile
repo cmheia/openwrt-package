@@ -44,7 +44,7 @@ define Package/$(PKG_NAME)/install
 		$(PKG_BUILD_DIR)/src/{3proxy,dighosts,ftppr,mycrypt,pop3p,proxy,socks,tcppm,udppm} \
 		$(1)/usr/bin
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/scripts/add3proxyuser.sh $(1)/usr/sbin
+	$(INSTALL_BIN) files/add3proxyuser.sh $(1)/usr/sbin
 	$(INSTALL_DIR) $(1)/etc/3proxy
 	$(INSTALL_CONF) files/3proxy.cfg $(1)/etc/3proxy
 	$(INSTALL_DIR) $(1)/etc/init.d
@@ -52,4 +52,3 @@ define Package/$(PKG_NAME)/install
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
-
